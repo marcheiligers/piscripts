@@ -83,8 +83,7 @@ except:
 Humidity = bin2dec(HumidityBit)
 Temperature = bin2dec(TemperatureBit)
 
-if int(Humidity) + int(Temperature) - int(bin2dec(crc)) == 0:
-   print Humidity
-   print Temperature
-else:
+if int(Humidity) + int(Temperature) - int(bin2dec(crc)) != 0:
    print "ERR_CRC"
+
+print "Humidity: {}, Temperature: {}".format(Humidity, Temperature)
