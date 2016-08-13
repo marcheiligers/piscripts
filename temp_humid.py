@@ -53,8 +53,9 @@ try:
          if i>=16 and i<24:
             TemperatureBit = TemperatureBit + "0"
 
-except:
+except as e:
    print "ERR_RANGE"
+   print e
    exit(0)
 
 try:
