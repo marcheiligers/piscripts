@@ -16,7 +16,7 @@ time.sleep(0.02)
 
 GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-for i in range(0,500):
+for i in range(0,1000):
     data.append(GPIO.input(4))
 
 print "Input data is:\n{}".format(data)
