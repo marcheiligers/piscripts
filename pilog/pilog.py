@@ -9,7 +9,7 @@ def post_to_pilog(data):
   headers = {'Content-type': 'application/json', 'Accept': 'application/json'}
   usn, pwd = os.environ["PILOG_AUTH"].split(":")
   auth = HTTPBasicAuth(usn, pwd)
-  content = { 'content': data })
+  content = { 'content': data }
   resp = requests.post(url, data=json.dumps(content), headers=headers, auth=auth)
   log_response(resp)
   return resp
