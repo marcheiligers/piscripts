@@ -1,6 +1,6 @@
 # DHT11
 
-![DHT11 connected to a Raspberry Pi 3 Model B](https://www.evernote.com/l/ABhQatj2l0lOqKzuuu69QBd-MQ_OH3ZGoEA)
+![DHT11 connected to a Raspberry Pi 3 Model B](https://github.com/marcheiligers/piscripts/blob/master/dht11/rpi3b_dht11.png?raw=true)
 
 The two examples here are based roughly on [the code found on UUGear](http://www.uugear.com/portfolio/dht11-humidity-temperature-sensor-module/).
 
