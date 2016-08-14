@@ -4,30 +4,30 @@
 import RPi.GPIO as GPIO
 import time
 
-DATA_MAX = 6000
+GPIO_DATA_PIN = 4
 
 def init_comms():
    GPIO.setmode(GPIO.BCM)
 
-   GPIO.setup(4,GPIO.OUT)
-   GPIO.output(4,GPIO.HIGH)
-   time.sleep(0.05)
-   GPIO.output(4,GPIO.LOW)
-   time.sleep(0.01)
+   GPIO.setup(GPIO_DATA_PIN, GPIO.OUT, initial=GPIO.LOW)
+   time.sleep(0.02)
+   GPIO.output(GPIO_DATA_PIN, GPIO.HIGH)
+   time.sleep(0.000002)
+   GPIO.setup(GPIO_DATA_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
-   GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
-def read_bits(bit_count = 40, min_high_bit_length = 50): #ms
+def read_bits(bit_count = 40, min_high_bit_length = 50): #µs
    bits = []
 
-   while GPIO.input(4) == 1:
+   while GPIO.input(GPIO_DATA_PIN) == 0:
+      pass
+   while GPIO.input(GPIO_DATA_PIN) == 1:
       pass
 
    while len(bits) < bit_count:
-      while GPIO.input(4) == 0:
+      while GPIO.input(GPIO_DATA_PIN) == 0:
          pass
       start = time.time()
-      while GPIO.input(4) == 1:
+      while GPIO.input(GPIO_DATA_PIN) == 1:
          pass
       stop = time.time()
 
