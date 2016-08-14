@@ -33,3 +33,9 @@ Humidity: 16%, Temparature: 39ºC, Checksum: True (55 <=> 55)
 ```
 
 That's more like the Arizona I know!
+
+## Another Update
+
+Adding an Interrupting Cow solves the infinite loop problem, though you will need to `sudo pip install interruptingcow` on your Pi. When combined with a neat way to do multiple attempts, this now always succeeds at providing a value from my Raspberry Pi 3 Model B. I wonder how it fares on other (slower) Pis.
+
+I've deleted the older `temp_humid.py` as it will only serve to confuse, and renamed the remaining file `read_dht11.py` and made it module-like so it can be used in more complex programs.

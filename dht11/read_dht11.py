@@ -3,6 +3,7 @@
 
 import RPi.GPIO as GPIO
 import time
+from interruptingcow import timeout
 
 GPIO_DATA_PIN = 4
 
@@ -41,17 +42,29 @@ def read_bits(bit_count = 40, min_high_bit_length = 50): #µs
 def bits_to_byte(bits):
    return int("".join(map(str, bits)), 2)
 
+def read_humidity_and_temp(attempts = 5):
+   try:
+      with timeout(1, exception=RuntimeError):
+         init_comms()
+         bits = read_bits()
+         humidity = bits_to_byte(bits[0:8])
+         other1 = bits_to_byte(bits[8:16])
+         temperature = bits_to_byte(bits[16:24])
+         other2 = bits_to_byte(bits[24:32])
+         checksum = bits_to_byte(bits[32:40])
+         compared = (humidity + temperature + other1 + other2) & 0xFF
+         if checksum != compared:
+            raise RuntimeError("Checksum does not match")
+         return (humidity, temperature)
+   except RuntimeError:
+      if attempts > 0:
+         time.sleep(0.2)
+         return read_humidity_and_temp(attempts - 1)
+      else:
+         raise
 
-init_comms()
-bits = read_bits()
-humidity = bits_to_byte(bits[0:8])
-other1 = bits_to_byte(bits[8:16])
-temperature = bits_to_byte(bits[16:24])
-other2 = bits_to_byte(bits[24:32])
-checksum = bits_to_byte(bits[32:40])
-compared = (humidity + temperature + other1 + other2) & 0xFF
-
-print "Humidity: {}%, Temparature: {}ºC, Checksum: {} ({} <=> {})".format(humidity, temperature, checksum == compared, checksum, compared)
-print "\n\n"
+if __name__ == "__main__":
+   humidity, temperature = read_humidity_and_temp()
+   print "Humidity: {}%, Temparature: {}ºC".format(humidity, temperature)
 
 
