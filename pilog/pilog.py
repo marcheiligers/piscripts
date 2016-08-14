@@ -15,7 +15,7 @@ def post_to_pilog(data):
   return resp
 
 def log_response(resp):
-  log(r.text)
+  log(resp.text)
 
 def log(message):
   with open('pilog.log', 'a') as f:
