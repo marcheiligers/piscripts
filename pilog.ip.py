@@ -8,4 +8,4 @@ def get_ip_address():
 
 
 ip = get_ip_address()
-r = post_to_pilog("ip={0}".format(ip))
+r = post_log("ip={0}".format(ip))
